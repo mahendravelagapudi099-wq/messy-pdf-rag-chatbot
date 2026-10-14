@@ -77,6 +77,7 @@ class Settings:
     llm_temperature: float = field(default_factory=lambda: _env_float("LLM_TEMPERATURE", 0.1))
     llm_timeout: float = field(default_factory=lambda: _env_float("LLM_TIMEOUT", 60.0))
     llm_max_tokens: int = field(default_factory=lambda: _env_int("LLM_MAX_TOKENS", 1024))
+    answer_mode: str = field(default_factory=lambda: _env("ANSWER_MODE", "auto"))
 
     # --- Embeddings ------------------------------------------------------
     embedding_provider: str = field(
@@ -152,11 +153,42 @@ class Settings:
         return replace(self, **clean)  # type: ignore[arg-type]
 
 
-def get_settings() -> Settings:
-    """Load settings and initialise logging."""
+def get_settings(reload: bool = False) -> Settings:
+    """Load settings and initialise logging. If reload=True, re-reads .env."""
+    if reload:
+        load_dotenv(PROJECT_ROOT / ".env", override=True)
     s = Settings()
     setup_logging(s.log_level)
     return s
+
+
+def save_env_overrides(updates: dict[str, str]) -> None:
+    """Persist key-value overrides into .env file while preserving existing lines."""
+    env_path = PROJECT_ROOT / ".env"
+    existing_lines: list[str] = []
+    if env_path.exists():
+        existing_lines = env_path.read_text("utf-8").splitlines()
+
+    new_lines: list[str] = []
+    seen: set[str] = set()
+
+    for line in existing_lines:
+        stripped = line.strip()
+        if stripped and not stripped.startswith("#") and "=" in stripped:
+            k, _ = stripped.split("=", 1)
+            k = k.strip()
+            if k in updates:
+                new_lines.append(f"{k}={updates[k]}")
+                seen.add(k)
+                continue
+        new_lines.append(line)
+
+    for k, v in updates.items():
+        if k not in seen:
+            new_lines.append(f"{k}={v}")
+
+    env_path.write_text("\n".join(new_lines) + "\n", "utf-8")
+    load_dotenv(env_path, override=True)
 
 
 # The chunking configurations compared by the benchmark command.

@@ -37,3 +37,4 @@ results/*.md
 .opencode/
 *.log
 scratch/
+.agent/
