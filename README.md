@@ -43,57 +43,50 @@ This project treats **PDF RAG as an end-to-end data pipeline problem**:
 
 ## 🏗️ System Architecture
 
-The following Mermaid diagram outlines the end-to-end data lifecycle from raw document intake to vector search and grounded response delivery:
-
 ```mermaid
-flowchart TD
-    subgraph INGESTION["1. Document Ingestion & ETL Pipeline"]
-        A[Raw PDF Upload / CLI Corpus] --> B[Validator: Magic Bytes %PDF- & Path Sanitization]
-        B --> C{Text Layer Present?}
-        C -- Yes --> D[PyMuPDF Text & Table Extraction]
-        C -- No (Scanned) --> E[OCR Engine: Tesseract / RapidOCR Probing]
-        E --> D
-        D --> F[Text Cleaning: Ligatures, De-hyphenation & Header Stripping]
-        F --> G[Page-Aware Chunker: tiktoken 512/64 Overlap]
-        G --> H[SHA-256 Deduplication & Metadata Enrichment]
+flowchart LR
+    subgraph S1["1. Ingestion & ETL"]
+        direction TB
+        A[Raw PDFs / Scans] --> B[PyMuPDF + OCR]
+        B --> C[Page-Aware Chunker]
     end
 
-    subgraph STORAGE["2. Embeddings & Persistent Storage"]
-        H --> I[Embedding Pipeline: ONNX all-MiniLM-L6-v2 CPU-Optimized]
-        I --> J[(ChromaDB Vector Store: Cosine Index)]
+    subgraph S2["2. Embed & Store"]
+        direction TB
+        C --> D[ONNX all-MiniLM]
+        D --> E[(ChromaDB Vector Store)]
     end
 
-    subgraph RETRIEVAL["3. Hybrid Retrieval & Grounding Engine"]
-        K[User Query / Test Question] --> L[Query Embedding Generator]
-        L --> M[Vector Similarity Search: Top-K Cosine Filtering]
-        J -.-> M
-        M --> N{Cosine Score >= Threshold 0.35?}
-        N -- Below --> O[Abstain / Flag Low Confidence]
-        N -- Above --> P[Optional Cross-Encoder Reranker]
-        P --> Q[Context Window Assembler with Page Provenance]
+    subgraph S3["3. Hybrid Retrieval"]
+        direction TB
+        F[Query] --> G[Cosine Top-K Search]
+        E -.-> G
+        G --> H[Threshold & Context Assembler]
     end
 
-    subgraph SERVING["4. Generation & Verification Layer"]
-        Q --> R{LLM API Configured?}
-        R -- Yes --> S[Prompt Engineering: System Constraints & Grounded LLM]
-        R -- No --> T[Extractive Fallback: Lexical Salience Sentence Extraction]
-        S --> U[Citation Verifier: Lexical Overlap Check]
-        T --> U
-        U --> V[Streamlit UI / JSON CLI Output with Page Badges]
+    subgraph S4["4. Serving & Citations"]
+        direction TB
+        H --> I{LLM Configured?}
+        I -- Yes --> J[Grounded Generation]
+        I -- No --> K[Extractive Fallback]
+        J & K --> L[Verified Page Citations]
     end
 
-    subgraph EVALUATION["5. Offline Quality & Benchmark Harness"]
-        W[data/eval_dataset.jsonl: 66 Questions] --> X[Benchmark Runner: scripts/run_eval.py]
-        X --> M
-        U --> Y[Automated Metrics: Hit Rate@5, MRR, Token F1, Fact Recall]
-        Y --> Z[Automated Reports: Markdown, CSV, PNG Performance Charts]
+    subgraph S5["5. Evaluation Harness"]
+        direction TB
+        M[66-Q Golden Dataset] --> N[Benchmark Runner]
+        N -.-> G
+        N --> O[Hit Rate@5 · MRR · Token F1]
     end
 
-    style INGESTION fill:#1e293b,stroke:#38bdf8,stroke-width:2px,color:#f8fafc
-    style STORAGE fill:#0f172a,stroke:#818cf8,stroke-width:2px,color:#f8fafc
-    style RETRIEVAL fill:#1e293b,stroke:#34d399,stroke-width:2px,color:#f8fafc
-    style SERVING fill:#0f172a,stroke:#f59e0b,stroke-width:2px,color:#f8fafc
-    style EVALUATION fill:#1e293b,stroke:#ec4899,stroke-width:2px,color:#f8fafc
+    S1 --> S2 --> S3 --> S4
+    S5 -.-> S3
+
+    style S1 fill:#1e293b,stroke:#38bdf8,stroke-width:1.5px,color:#f8fafc
+    style S2 fill:#0f172a,stroke:#818cf8,stroke-width:1.5px,color:#f8fafc
+    style S3 fill:#1e293b,stroke:#34d399,stroke-width:1.5px,color:#f8fafc
+    style S4 fill:#0f172a,stroke:#f59e0b,stroke-width:1.5px,color:#f8fafc
+    style S5 fill:#1e293b,stroke:#ec4899,stroke-width:1.5px,color:#f8fafc
 ```
 
 ---
