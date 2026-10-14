@@ -18,7 +18,13 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.citations import overlap_score, similarity_of  # noqa: E402
-from src.config import get_settings, save_env_overrides  # noqa: E402
+try:
+    from src.config import get_settings, save_env_overrides  # noqa: E402
+except ImportError:
+    import importlib
+    import src.config  # noqa: E402
+    importlib.reload(src.config)
+    from src.config import get_settings, save_env_overrides  # noqa: E402
 from src.evaluation import coverage, format_comparison_table, load_dataset  # noqa: E402
 from src.models import Answer, RetrievedChunk  # noqa: E402
 from src.rag import RAGEngine  # noqa: E402

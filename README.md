@@ -169,13 +169,11 @@ When a user asks: *"What is the minimum CRR requirement under Master Direction 2
 
 | Interactive Grounded Chat & Citations | Vector Telemetry & System Status |
 |:---:|:---:|
-| ![Chat UI Showcase](docs/screenshots/chat_grounding.png)<br>*Grounded answers citing page number, chunk ID, and cosine similarity score* | ![Telemetry Showcase](docs/screenshots/system_telemetry.png)<br>*Live telemetry tracking active embeddings, indexed chunks, and OCR capabilities* |
+| <img src="docs/screenshots/chat_grounding.png" width="480" alt="Chat UI Showcase" /><br>*Grounded answers citing page number, chunk ID, and cosine similarity score* | <img src="docs/screenshots/system_telemetry.png" width="480" alt="Telemetry Showcase" /><br>*Live telemetry tracking active embeddings, indexed chunks, and OCR capabilities* |
 
-| Indexed Corpus & Document Management | Evaluation Benchmark CLI & Heatmap |
+| Indexed Corpus & Document Management | Evaluation Benchmark CLI & Metrics |
 |:---:|:---:|
-| ![Corpus Showcase](docs/screenshots/corpus_management.png)<br>*Dynamic document management with purge triggers and page breakdowns* | ![Benchmark CLI Showcase](docs/screenshots/benchmark_cli.png)<br>*Automated benchmark evaluating Hit Rate@k, MRR, and token-level F1* |
-
-*(Note: Add visual captures into `docs/screenshots/` to display live previews)*
+| <img src="docs/screenshots/corpus_management.png" width="480" alt="Corpus Showcase" /><br>*Compact 3-item hierarchy with collapsible disclosure and purge triggers* | <img src="docs/screenshots/benchmark_cli.png" width="480" alt="Benchmark CLI Showcase" /><br>*Automated benchmark evaluating Hit Rate@k, MRR, and token-level F1* |
 
 ---
 
