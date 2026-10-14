@@ -626,27 +626,39 @@ def render_document_panel(engine: RAGEngine, max_mb: int) -> None:
 
     st.caption(f"Currently managing **{len(docs)}** vectorized document(s):")
 
-    for d in docs:
+    def _render_doc_card(doc):
         with st.container(border=True):
             col_info, col_act = st.columns([4, 1])
             with col_info:
-                st.markdown(f"**📄 {d.filename}**")
-                ocr_badge = f'<span class="badge-pill ocr">OCR: {d.ocr_pages}p</span>' if d.ocr_pages else ""
+                st.markdown(f"**📄 {doc.filename}**")
+                ocr_badge = f'<span class="badge-pill ocr">OCR: {doc.ocr_pages}p</span>' if doc.ocr_pages else ""
                 st.markdown(
                     f"""
                     <div>
-                        <span class="badge-pill">{d.page_count} pages</span>
-                        <span class="badge-pill emerald">{d.chunk_count} chunks</span>
+                        <span class="badge-pill">{doc.page_count} pages</span>
+                        <span class="badge-pill emerald">{doc.chunk_count} chunks</span>
                         {ocr_badge}
                     </div>
                     """,
                     unsafe_allow_html=True,
                 )
             with col_act:
-                if st.button("🗑️", key=f"rm_{d.doc_id}", help=f"Purge {d.filename} from index", use_container_width=True):
-                    removed = engine.remove_document(d.doc_id)
-                    st.toast(f"Purged {removed} chunks from {d.filename}")
+                if st.button("🗑️", key=f"rm_{doc.doc_id}", help=f"Purge {doc.filename} from index", use_container_width=True):
+                    removed = engine.remove_document(doc.doc_id)
+                    st.toast(f"Purged {removed} chunks from {doc.filename}")
                     st.rerun()
+
+    # Show top 3 documents by default to keep page height compact
+    preview_docs = docs[:3]
+    remaining_docs = docs[3:]
+
+    for d in preview_docs:
+        _render_doc_card(d)
+
+    if remaining_docs:
+        with st.expander(f"📂 View remaining {len(remaining_docs)} document(s) in corpus...", expanded=False):
+            for d in remaining_docs:
+                _render_doc_card(d)
 
 
 def render_citations(engine: RAGEngine, answer: Answer) -> None:
