@@ -1,0 +1,9 @@
+# Optional upgrades. Install with:
+#   pip install -r requirements.txt -r requirements-optional.txt
+#
+# These improve retrieval quality (larger embedding model + cross-encoder reranker)
+# but are heavy (~2.5 GB) and are NOT required -- the app runs fully without them.
+
+sentence-transformers==3.4.1
+torch==2.14.1
+llama-index-core==0.14.25

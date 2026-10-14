@@ -1,0 +1,17 @@
+{"filename": "rbi_circular_2026.pdf", "official_source_url": "https://rbi.org.in/Scripts/Notification.aspx?Id=...", "retrieval_date": "2026-05-15", "page_count": 12, "notes": "Scanned cover page (pp. 1-2); tables on pp. 5-6 requiring OCR."}
+{"filename": "pmgsy_guidelines.pdf", "official_source_url": "https://pgssb.gov.in/Circulars", "retrieval_date": "2026-04-28", "page_count": 8, "notes": "Running headers on all pages; one embedded table on p. 3."}
+{"filename": "syllabus_autumn2025.pdf", "official_source_url": "https://university.edu/courses/me501", "retrieval_date": "2025-09-01", "page_count": 4, "notes": "No scanned pages; clean text extraction."}
+{"filename": "rbi_ scanned_manual.pdf", "official_source_url": "https://rbi.org.in/Scripts/...", "retrieval_date": "2026-06-01", "page_count": 1, "notes": "Fully scanned; OCR required for any text."}
+{"filename": "IncomeTax_circular.pdf", "official_source_url": "https://incometaxindia.gov.in", "retrieval_date": "2026-03-10", "page_count": 6, "notes": "Two tables on pp. 3-4; running footer with page numbers."}
+{"filename": "new_guideline_doc.pdf", "official_source_url": "https://example-government-site.gov/guidelines", "retrieval_date": "2026-01-15", "page_count": 10, "notes": "Multi-column layout on pp. 2-7; OCR unavailable on this machine."}
+{"filename": "blank_cover.pdf", "official_source_url": "https://example.org/docs", "retrieval_date": "2026-02-20", "page_count": 3, "notes": "Pages 1-2 have text; page 3 is a blank cover sheet."}
+{"filename": "regulations_2024.pdf", "official_source_url": "https://regulations.gov/doc/2024-0789", "retrieval_date": "2024-12-01", "page_count": 15, "notes": "Extensive tables throughout; mixture of OCR-required and clean text pages."}
+{"filename": "policy_framework.pdf", "official_source_url": "https://policy.example.gov/framework", "retrieval_date": "2025-11-01", "page_count": 20, "notes": "Clean text on all pages; no scanned content."}
+{"filename": "unclassified_annual_report.pdf", "official_source_url": "https://agency.example.gov/report/2025", "retrieval_date": "2025-10-15", "page_count": 25, "notes": "First 10 pages clean, remaining pages scanned. OCR backend unavailable on this system."}
+{"filename": "form_16.pdf", "official_source_url": "https://employer.example.com/form16", "retrieval_date": "2026-05-01", "page_count": 2, "notes": "Clean PDF; no OCR needed."}
+{"filename": "budget_speech.pdf", "official_source_url": "https://finance.gov/budget2026", "retrieval_date": "2026-02-01", "page_count": 12, "notes": "One table on p. 5; hybrid OCR/clean text document."}
+{"filename": "tax_law_amendment.pdf", "official_source_url": "https://tax.gov/amendment2025", "retrieval_date": "2025-08-15", "page_count": 8, "notes": "No scanned pages; clean extraction. Headers on pp. 1 and 8."}
+{"filename": "regional_scheme_guidelines.pdf", "official_source_url": "https://state.gov.scheme/guidelines", "retrieval_date": "2025-06-01", "page_count": 11, "notes": "Scanned cover page (pp. 1-3); remaining pages have clean text extraction."}
+{"filename": "compliance_manual.pdf", "official_source_url": "https://compliance.example.com/manual", "retrieval_date": "2025-04-01", "page_count": 30, "notes": "Mixture of OCR-required pages (pp. 5-8, 15-17) and clean text pages. Running headers on all pages."}
+{"filename": "data_retention_policy.pdf", "official_source_url": "https://company.example.com/policy", "retrieval_date": "2025-03-01", "page_count": 5, "notes": "Clean PDF; no OCR needed. Contains a small embedded table on p. 3."}
+}

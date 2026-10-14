@@ -1,0 +1,45 @@
+# ---- Core dependencies (verified on Python 3.14, Windows) ----
+# Interface
+streamlit==1.65.0
+pyarrow==25.0.1
+
+# Vector store
+chromadb==0.6.3
+
+# PDF parsing
+PyMuPDF==1.28.2
+
+# Embeddings: ONNX Runtime + tokenizers (no torch required).
+# Chroma's DefaultEmbeddingFunction bundles all-MiniLM-L6-v2 in ONNX form.
+onnxruntime==1.31.0
+tokenizers==0.22.2
+numpy==2.5.4
+
+# Chunking
+tiktoken==0.14.0
+
+# LLM (OpenAI-compatible: OpenRouter / Ollama / vLLM / OpenAI)
+openai==1.109.1
+
+# Config & validation
+python-dotenv==1.2.4
+pydantic==2.14.1
+pydantic-core==2.50.1
+
+# OCR backends
+pytesseract==0.3.13
+Pillow==11.3.0
+rapidocr-onnxruntime==1.2.3
+
+# Reports / charts
+matplotlib==3.11.2
+
+# Testing
+pytest==8.4.2
+pytest-asyncio==0.25.3
+reportlab==4.5.1
+
+# ---- Optional upgrades (see requirements-optional.txt) ----
+# llama-index-core==0.14.25
+# sentence-transformers==3.4.1
+# torch==2.14.1
